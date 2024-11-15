@@ -2,7 +2,8 @@ import socket
 import threading
 
 cli_addr = ()
-serv_addr = ("127.0.0.1", 5005)
+#serv_addr = ("127.0.0.1", 5005)
+serv_addr = (str(socket.gethostbyname(socket.gethostname())), 5005)
 
 def send_message():
     global cli_addr
@@ -16,7 +17,7 @@ def receive_message():
     global cli_addr
     rec_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     rec_sock.bind(serv_addr)
-    print("I'm listening at " + socket.gethostbyname(socket.gethostname()) + ":" + str(serv_addr[1]) + "!")
+    print("I'm listening at " + serv_addr[0] + ":" + str(serv_addr[1]) + "!")
     #print("For local testing, use " + str(serv_addr[0]) + ":" + str(serv_addr[1]))
     while True:
         data, addr = rec_sock.recvfrom(1024)
