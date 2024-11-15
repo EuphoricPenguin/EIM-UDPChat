@@ -12,14 +12,20 @@ serv_addr = (local_ip, 5005)
 
 def send_message():
     global cli_addr
+    cli_connect = True
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     while True:
         if cli_addr:
+            if cli_connect:
+                # Sends confirmation to client of connection.
+                send_sock.sendto(b"Connection established.", cli_addr)
+                cli_connect = False
             msg = input("")
             send_sock.sendto(msg.encode(), cli_addr)
 
 def receive_message():
     global cli_addr
+    global cli_connect
     rec_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     rec_sock.bind(serv_addr)
     print("I'm listening at " + serv_addr[0] + ":" + str(serv_addr[1]) + "!")
