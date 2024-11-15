@@ -1,8 +1,13 @@
 import socket
 import threading
 
-#cli_addr = ("127.0.0.1", 5006)
-cli_addr = (str(socket.gethostbyname(socket.gethostname())), 5006)
+#Procedure to get local IP
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("1.1.1.1", 80))
+local_ip = s.getsockname()[0]
+s.close()
+
+cli_addr = (local_ip, 5006)
 
 def send_message():
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
