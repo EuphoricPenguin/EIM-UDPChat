@@ -2,7 +2,7 @@ import socket
 import threading
 
 #cli_addr = ("127.0.0.1", 5006)
-cli_addr = (str(socket.gethostbyname(socket.gethostname())), 5006)
+cli_addr = (str(socket.gethostbyname(socket.gethostname())), 80)
 
 def send_message():
     send_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
